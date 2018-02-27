@@ -92,3 +92,82 @@ plot.zoo(CDI_mensal[,4])
 
 CDI_ret_mens<-Return.calculate(CDI_mensal[,4])
 plot.zoo(CDI_ret_mens)
+
+##############################################
+# Retornos Anualizados
+##############################################
+
+IBOV_anual<-Return.annualized(ret_IBOV,scale=12)
+CDI_anual<-Return.annualized(ret_CDI,scale=12)
+
+sd_IBOV_anual<-StdDev.annualized(ret_IBOV,scale=12)
+sd_CDI_anual<-StdDev.annualized(ret_CDI, scale=12)
+
+sharpe_IBOV_anual<-SharpeRatio.annualized(ret_IBOV, Rf=ret_CDI,scale=12)
+
+##############################################
+# Desenhando o retorno anualizado em uma janela de 12 meses
+#########################################################
+
+chart.RollingPerformance(R = ret_IBOV, width = 12, FUN = "Return.annualized")
+abline(h = IBOV_anual)
+
+# Plotting the 12-month rolling annualized standard deviation
+chart.RollingPerformance(R = ret_IBOV, width = 12, FUN = "StdDev.annualized")
+abline(h = sd_IBOV_anual)
+
+# Plotting the 12-month rolling annualized Sharpe ratio
+chart.RollingPerformance(R = ret_IBOV, width = 12, FUN = "SharpeRatio.annualized",Rf=ret_CDI)
+abline(h = sharpe_IBOV_anual)
+
+
+############################################################
+# Análise para subperíodos
+############################################################
+
+IBOV_2008<-window(ret_IBOV, start="2008-01-01", end="2008-12-31")
+IBOV_2014<-window(ret_IBOV, start="2014-01-01", end="2014-12-31")
+
+# Parâmetros dos gráficos
+par(mfrow = c(1, 2) , mar=c(3, 2, 2, 2))
+names(IBOV_2008) <- "IBOV_2008"
+names(IBOV_2014) <- "IBOV_2014"
+
+# Histograma de Retornos
+chart.Histogram(IBOV_2008,methods=c("add.density","add.normal"))
+
+# Histograma de Retornos 2014
+chart.Histogram(IBOV_2014,methods=c("add.density","add.normal"))
+
+#########################################################
+# Detectando a não Normalidade
+#########################################################
+
+skewness(ret_IBOV)
+skewness(IBOV_ret_mens)
+
+kurtosis(ret_IBOV)
+kurtosis(IBOV_ret_mens)
+
+
+########################################################
+# Medida de ``Downside Risk''
+########################################################
+# Calculate the SemiDeviation
+SemiDeviation(IBOV_ret_mens)
+
+# Calculate the value at risk
+VaR(IBOV_ret_mens,p=0.025)
+VaR(IBOV_ret_mens,p=0.05)
+
+
+# Calculate the expected shortfall
+ES(IBOV_ret_mens,p=.025)
+ES(IBOV_ret_mens,p=.05)
+
+
+# Table of drawdowns
+table.Drawdowns(ret_IBOV)
+
+# Plot of drawdowns
+chart.Drawdown(ret_IBOV)

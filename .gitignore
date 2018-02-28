@@ -32,3 +32,6 @@ vignettes/*.pdf
 *.utf8.md
 *.knit.md
 .Rproj.user
+
+# Temp data from Marcelo Perlin code
+/BGS_Cache/

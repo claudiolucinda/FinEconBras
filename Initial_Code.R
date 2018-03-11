@@ -11,6 +11,7 @@ library(xlsx)
 library(tidyverse)
 
 rm(list=ls())
+graphics.off()
 ########################################################
 # Miolo de Funções
 ########################################################
@@ -52,8 +53,8 @@ carteira_bh<-Return.portfolio(carteira,weights=peso_inicial,verbose=TRUE)
 carteira_rebal<-Return.portfolio(carteira,weights=peso_inicial, rebalance_on="months",verbose=TRUE)
 
 par(mfrow = c(2, 1), mar = c(2, 4, 2, 2))
-plot.zoo(carteira_bh)
-plot.zoo(carteira_rebal)
+plot.zoo(carteira_bh$returns)
+plot.zoo(carteira_rebal$returns)
 
 peso_bh<-carteira_bh$EOP.Weight
 peso_rebal<-carteira_rebal$EOP.Weight
@@ -70,14 +71,16 @@ plot.zoo(peso_rebal$ret_PETR4)
 
 IBOV_mensal<-to.monthly(IBOV)
 
-# Fechamento Mensal
-plot.zoo(IBOV_mensal[,4])
 
 # Calculando os Retornos Mensais
 IBOV_ret_mens<-Return.calculate(IBOV_mensal[,4])
 
+par(mfrow = c(2, 1), mar=c(2, 4, 2, 2))
+# Fechamento Mensal
+plot.zoo(IBOV_mensal[,4])
 # Retornos mensais
 plot.zoo(IBOV_ret_mens)
+
 
 #Retornos Médios - Aritméticos
 mean(IBOV_ret_mens,na.rm=T)
@@ -97,27 +100,30 @@ plot.zoo(CDI_ret_mens)
 # Retornos Anualizados
 ##############################################
 
-IBOV_anual<-Return.annualized(ret_IBOV,scale=12)
-CDI_anual<-Return.annualized(ret_CDI,scale=12)
+cart_bh_anual<-Return.annualized(carteira_bh$returns, scale=252)
+cart_rebal_anual<-Return.annualized(carteira_rebal$returns,scale=252)
+IBOV_anual<-Return.annualized(ret_IBOV,scale=252)
+CDI_anual<-Return.annualized(ret_CDI,scale=252)
 
-sd_IBOV_anual<-StdDev.annualized(ret_IBOV,scale=12)
-sd_CDI_anual<-StdDev.annualized(ret_CDI, scale=12)
+sd_IBOV_anual<-StdDev.annualized(ret_IBOV,scale=252)
+sd_CDI_anual<-StdDev.annualized(ret_CDI, scale=252)
 
-sharpe_IBOV_anual<-SharpeRatio.annualized(ret_IBOV, Rf=ret_CDI,scale=12)
-
+sharpe_IBOV_anual<-SharpeRatio.annualized(ret_IBOV, Rf=ret_CDI,scale=252)
+sharpe_rebal<-SharpeRatio.annualized(carteira_rebal$returns, Rf=ret_CDI,scale=252)
+sharpe_bh<-SharpeRatio.annualized(carteira_bh$returns,Rf=ret_CDI,scale=252)
 ##############################################
 # Desenhando o retorno anualizado em uma janela de 12 meses
 #########################################################
 
-chart.RollingPerformance(R = ret_IBOV, width = 12, FUN = "Return.annualized")
+chart.RollingPerformance(R = ret_IBOV, width = 252, FUN = "Return.annualized")
 abline(h = IBOV_anual)
 
 # Plotting the 12-month rolling annualized standard deviation
-chart.RollingPerformance(R = ret_IBOV, width = 12, FUN = "StdDev.annualized")
+chart.RollingPerformance(R = ret_IBOV, width = 252, FUN = "StdDev.annualized")
 abline(h = sd_IBOV_anual)
 
 # Plotting the 12-month rolling annualized Sharpe ratio
-chart.RollingPerformance(R = ret_IBOV, width = 12, FUN = "SharpeRatio.annualized",Rf=ret_CDI)
+chart.RollingPerformance(R = ret_IBOV, width = 252, FUN = "SharpeRatio.annualized",Rf=ret_CDI)
 abline(h = sharpe_IBOV_anual)
 
 

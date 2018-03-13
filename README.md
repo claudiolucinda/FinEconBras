@@ -9,3 +9,4 @@ Material para aplicação de R em Análise de Investimentos. Baseado no curso RE
 Apresentações
 
 * `Aula01.pdf` - Aula referente ao capítulo 5 do BKM, sobre medição de risco e retorno.
+* `Aula02.pdf` - Continuação da Aula 01, sobre medindo o risco com distribuições não-normais.

@@ -1,10 +1,9 @@
-#########################################################
-# Baixando os dados das ações componentes do IBOVESPA
+####################################
+# Fronteira Eficiente
 # Claudio R. Lucinda
-#########################################################
-# install.packages("quantmod")
-# install.packages("BatchGetSymbols")
-# install.packages("tidyquant")
+####################################
+# Puxando os dados do IBOVESPA
+
 library(BatchGetSymbols)
 library(PortfolioAnalytics)
 library(xlsx)
@@ -91,10 +90,37 @@ df_monthly <- function(.df) {
 data_IBOV<-conv_ts(data_IBOV)
 data_IBOV<-remove_outliers(data_IBOV,pct=.25,iqr.tresh = 3)
 data_IBOV<-clean_na(data_IBOV)
+data_IBOV_Mensal<-na.omit(df_monthly(data_IBOV))
 
 
-IBOV_Returns<-df_returns(data_IBOV)
-data_IBOV_monthly<-df_monthly(data_IBOV)
 
-IBOV_Returns_monthly<-df_returns(data_IBOV_monthly)
-IBOV_Returns_Final<-na.omit(IBOV_Returns_monthly)
+  
+  
+######################################
+# Especificando
+######################################
+Sys.setlocale("LC_ALL","English")
+
+port_spec<-portfolio.spec(colnames(data_IBOV_Mensal))
+port_spec <- add.constraint(portfolio = port_spec,
+                            type = "full_investment")
+port_spec <- add.constraint(portfolio = port_spec,
+                              type = "long_only")
+port_spec <- add.objective(portfolio = port_spec,
+                             type = "return",
+                             name = "mean")
+port_spec <- add.objective(portfolio = port_spec,
+                             type = "risk",
+                             name = "StdDev")
+
+opt <- optimize.portfolio(data_IBOV_Mensal, portfolio = port_spec,
+                          optimize_method = "random", search_size = 20000,
+                          trace = TRUE)
+opt2 <- optimize.portfolio(data_IBOV_Mensal, portfolio = port_spec,
+                          optimize_method = "DEoptim",
+                          trace = TRUE)
+
+chart.RiskReward(opt2, risk.col = "StdDev", return.col = "mean",
+                   chart.assets = TRUE)
+
+chart.EfficientFrontier(opt2, match.col="StdDev", rf=.01)

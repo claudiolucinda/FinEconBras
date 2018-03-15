@@ -5,6 +5,9 @@ Material para aplicação de R em Análise de Investimentos. Baseado no curso RE
 * `Initial_Code.R` - Código para uma análise inicial, usando o pacote `PortfolioAnalytics`. Boa parte dos temas é coberto no capítulo 05 do BKM.
 * `Portfolio_Analysis.R`- Código para análise de carteira, também usando o pacote `PortfolioAnalytics`
 * `Ibov_data.R`- Código para baixar os dados das ações componentes do IBOVESPA, usando o mesmo pacote `PortfolioAnalytics` e `BatchGetQuotes` do [Marcelo Perlin](https://msperlin.github.io/)
+* `TwoAsset.R`- Código para elaborar a álgebra de carteiras com dois ativos
+* `eff_frontier.R`- Código para o desenho de uma fronteira eficiente com alguns dados do IBOVESPA, usando os comandos do `PortfolioAnalytics`
+* `diversification.R`- Código para mostrar o efeito da diversificação com alguns dados do IBOVESPA
 
 Apresentações
 

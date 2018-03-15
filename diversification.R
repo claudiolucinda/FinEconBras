@@ -1,10 +1,8 @@
-#########################################################
-# Baixando os dados das ações componentes do IBOVESPA
+########################################
+# Diversification
 # Claudio R. Lucinda
-#########################################################
-# install.packages("quantmod")
-# install.packages("BatchGetSymbols")
-# install.packages("tidyquant")
+########################################
+
 library(BatchGetSymbols)
 library(PortfolioAnalytics)
 library(xlsx)
@@ -91,10 +89,47 @@ df_monthly <- function(.df) {
 data_IBOV<-conv_ts(data_IBOV)
 data_IBOV<-remove_outliers(data_IBOV,pct=.25,iqr.tresh = 3)
 data_IBOV<-clean_na(data_IBOV)
+data_IBOV_Mensal<-na.omit(df_monthly(data_IBOV))
 
+# teste<-combn(colnames(data_IBOV),2,simplify = FALSE)
+# teste2<-na.omit(data_IBOV[,teste[[1]]])
+# testewgts<-rep((1/2), each=2)
+# 
+# returns<-data.frame(lapply(teste2,Return.calculate))[-1,]
+# data_02<-rownames(returns)
+# returns<-xts(returns,order.by=as.Date(data_02, format="%Y-%m-%d"))
+# carteira_rebal<-Return.portfolio(returns,weights=testewgts, rebalance_on="months",verbose=TRUE)
 
-IBOV_Returns<-df_returns(data_IBOV)
-data_IBOV_monthly<-df_monthly(data_IBOV)
+#Retornos Médios - Aritméticos
+mean(carteira_rebal$returns,na.rm=T)
+sd(carteira_rebal$returns)
 
-IBOV_Returns_monthly<-df_returns(data_IBOV_monthly)
-IBOV_Returns_Final<-na.omit(IBOV_Returns_monthly)
+inner2 <- function(.x,.df,.wts,.pb=NULL) {
+  if (.pb$i < .pb$n) .pb$tick()$print()
+  teste2<-na.omit(.df[,.x])
+  returns<-data.frame(lapply(teste2,Return.calculate))[-1,]
+  data_02<-rownames(returns)
+  returns<-xts(returns,order.by=as.Date(data_02, format="%Y-%m-%d"))
+  carteira_rebal<-Return.portfolio(returns,weights=.wts, rebalance_on="months",verbose=FALSE)
+  out<-sd(carteira_rebal$portfolio.returns)
+  return(out)
+}
+
+inner <- function(.n,.df) {
+  teste<-combn(colnames(.df),.n,simplify = FALSE)
+  testewgts<-rep((1/.n), each=.n)
+  pb<-progress_estimated(length(teste),0)
+  ports<-plyr::ldply(teste, function(x) inner2(x,.df=.df,.wts=testewgts,.pb))
+  med_sd<-mean(ports$V1)
+  out<-data.frame(.n,med_sd)
+  return(out)
+}
+
+outer <- function(.df) {
+  max_ports<-5
+  out<-plyr::ldply(seq(2,max_ports,1),function(x) inner(x,.df=.df))
+  return(out)
+  
+}
+
+teste<-outer(data_IBOV)

@@ -17,7 +17,6 @@ graphics.off()
 # Importando os dados
 IBOV_Data<-read.xlsx("./Comp_IBOV.xlsx",sheetName="IBOV",stringsAsFactors=F)
 tickers<-data.frame(IBOV_Data$Ticker,stringsAsFactors=FALSE)
-suffix <- data.frame(replicate(nrow(tickers), ".SA"),stringsAsFactors=F)
 tickers_Yah<-paste0(tickers[[1]],".SA")[1:64]
 
 datainicial<-"2004-01-01"
@@ -37,7 +36,7 @@ datafinal<-"2018-02-23"
 # plist <- eapply(dataEnv, Ad)
 # IBOV_Cots <- do.call(merge, plist)
 
-tickers_Yah_fin<-tickers_Yah[!tickers_Yah %in% c("KLBN11.SA","SAPR11.SA","TAEE11.SA","VVAR11.SA")]
+#tickers_Yah_fin<-tickers_Yah[!tickers_Yah %in% c("KLBN11.SA","SAPR11.SA","TAEE11.SA","VVAR11.SA")]
 
 
 ##############################################
@@ -98,3 +97,5 @@ data_IBOV_monthly<-df_monthly(data_IBOV)
 
 IBOV_Returns_monthly<-df_returns(data_IBOV_monthly)
 IBOV_Returns_Final<-na.omit(IBOV_Returns_monthly)
+
+saveRDS(list=ls(),file="IbovData.RDS")

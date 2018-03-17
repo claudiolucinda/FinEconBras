@@ -29,20 +29,17 @@ two_asset <- function(.w,.rho,.mu.A,.mu.B,.sig.A,.sig.B) {
 }
 
 port_1<-plyr::ldply(seq(0,1,.01), function(x) two_asset(x,.rho=1,.mu.A=.175,.mu.B=.055,.sig.A=.258,.sig.B=.115))
-
 port_0<-plyr::ldply(seq(0,1,.01), function(x) two_asset(x,.rho=0,.mu.A=.175,.mu.B=.055,.sig.A=.258,.sig.B=.115))
-
 port_minus_1<-plyr::ldply(seq(0,1,.01), function(x) two_asset(x,.rho=-1,.mu.A=.175,.mu.B=.055,.sig.A=.258,.sig.B=.115))
-library(ggplot2)
-library(reshape)
 new_data<-merge(port_1,port_0,by="mu.p1")
 colnames(new_data)<-c("mu.p1","sig_1","Var_1","sig_2","Var_2")
 new_data<-merge(new_data,port_minus_1,by="mu.p1")
 colnames(new_data)<-c("mu.p1","sig_1","Var_1","sig_2","Var_2","sig_3","Var_3")
 
 
+library(ggplot2)
 
-p<-ggplot() +geom_path(data=new_data,aes(x=sig_1,y=mu.p1),color="red") +
+ggplot() +geom_path(data=new_data,aes(x=sig_1,y=mu.p1),color="red") +
   geom_path(data=new_data,aes(x=sig_2,y=mu.p1),color="blue") +
   geom_path(data=new_data,aes(x=sig_3,y=mu.p1),color="green") +
   labs(x = "Std. Dev.", y = "Exp. Return") +

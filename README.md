@@ -14,6 +14,7 @@ Apresentações
 * `Aula01.pdf` - Aula referente ao capítulo 5 do BKM, sobre medição de risco e retorno.
 * `Aula02.pdf` - Continuação da Aula 01, sobre medindo o risco com distribuições não-normais.
 * `Aula03.pdf` - Aula referente ao capítulo 7 do BKM, sobre carteiras arriscadas -- com apresentação de como baixar os dados das ações do IBOVESPA do Yahoo Finance.
+* `Aula04.pdf` - Ainda trabalhando o capítulo 7 do BKM, sobre carteiras arriscadas e agora desenhando a Fronteira Eficiente.
 
 Bancos de Dados
 * `Data01.xlsx` - Planilha com 14 anos de cotações de fechamento do IBOVESPA, CDI, PETR4 e BBAS3

@@ -8,6 +8,7 @@ Material para aplicação de R em Análise de Investimentos. Baseado no curso RE
 * `TwoAsset.R`- Código para elaborar a álgebra de carteiras com dois ativos
 * `eff_frontier.R`- Código para o desenho de uma fronteira eficiente com alguns dados do IBOVESPA, usando os comandos do `PortfolioAnalytics`
 * `diversification.R`- Código para mostrar o efeito da diversificação com alguns dados do IBOVESPA
+* `Fund_Data.R` - Código para construir o banco de dados de fundos para CAPM e APT, com fatores de risco baixados do [NEFIN](http://www.nefin.com.br/)
 
 Apresentações
 
@@ -19,3 +20,4 @@ Apresentações
 Bancos de Dados
 * `Data01.xlsx` - Planilha com 14 anos de cotações de fechamento do IBOVESPA, CDI, PETR4 e BBAS3
 * `Comp_IBOV.xlsx` - Composição do IBOVESPA em Março de 2018.
+* `Lucinda_Nerasti.xlsx` - Banco de dados do artigo: NERASTI, João Nascimento; LUCINDA, Claudio Ribeiro. Persistência de Desempenho em Fundos de Ações no Brasil/(Persistence in Mutual Fund Performance in Brazil). Revista Brasileira de Finanças, v. 14, n. 2, p. 269, 2016. **Favor Citar o Artigo Original**

@@ -45,7 +45,7 @@ opt <- optimize.portfolio(IBOV_Returns_Final, portfolio = port_spec,
                           optimize_method = "random", search_size = 20000,
                           trace = TRUE)
 opt2 <- optimize.portfolio(IBOV_Returns_Final, portfolio = port_spec,
-                          optimize_method = "ROI",
+                          optimize_method = "DEOptim",
                           trace = FALSE)
 meanvar.ef<-create.EfficientFrontier(R=IBOV_Returns_Final,portfolio = port_spec,type="mean-StdDev", n.portfolios = 250)
 meanvar.ef
@@ -70,8 +70,8 @@ port_spec2 <- add.objective(portfolio = port_spec2,
                            type = "risk",
                            name = "StdDev")
 
-opt22 <- optimize.portfolio(IBOV_Returns_Final, portfolio = port_spec2,
-                           optimize_method = "ROI",
+opt22 <- optimize.portfolio(R=IBOV_Returns_Final, portfolio = port_spec2,
+                           optimize_method = "DEOptim",
                            trace = FALSE)
 
 portf.list<-combine.portfolios(list(port_spec, port_spec2))
@@ -80,3 +80,14 @@ chart.EfficientFrontierOverlay(R=IBOV_Returns_Final, portfolio_list=portf.list, 
                                match.col="StdDev", legend.loc="topleft", 
                                legend.labels=legend.labels, cex.legend=0.6,
                                labels.assets=FALSE, pch.assets=18)
+
+
+###############################################
+# Entendendo a Otimização das carteiras
+###############################################
+print(opt22)
+
+opt2_rebal<-optimize.portfolio.rebalancing(R=IBOV_Returns_Final, portfolio = port_spec2,
+                               optimize_method = "DEOptim", rebalance_on="years", training_period = 12,
+                               trace = FALSE)
+

@@ -7,6 +7,8 @@ Material para aplicação de R em Análise de Investimentos. Baseado no curso RE
 * `Ibov_data.R`- Código para baixar os dados das ações componentes do IBOVESPA, usando o mesmo pacote `PortfolioAnalytics` e `BatchGetQuotes` do [Marcelo Perlin](https://msperlin.github.io/)
 * `TwoAsset.R`- Código para elaborar a álgebra de carteiras com dois ativos
 * `eff_frontier.R`- Código para o desenho de uma fronteira eficiente com alguns dados do IBOVESPA, usando os comandos do `PortfolioAnalytics`
+* `eff_frontier_daily.R`- Código para a fronteira eficiente com dados das ações do IBOVESPA em uma base diária, usando os comandos do `PortfolioAnalytics`
+* `opt_portfolio.R` - Código usado para detalhar melhor o que significa a Otimização de Carteira no contexto do `PortfolioAnalytics`
 * `diversification.R`- Código para mostrar o efeito da diversificação com alguns dados do IBOVESPA
 * `Fund_Data.R` - Código para construir o banco de dados de fundos para CAPM e APT, com fatores de risco baixados do [NEFIN](http://www.nefin.com.br/)
 
@@ -16,6 +18,7 @@ Apresentações
 * `Aula02.pdf` - Continuação da Aula 01, sobre medindo o risco com distribuições não-normais.
 * `Aula03.pdf` - Aula referente ao capítulo 7 do BKM, sobre carteiras arriscadas -- com apresentação de como baixar os dados das ações do IBOVESPA do Yahoo Finance.
 * `Aula04.pdf` - Ainda trabalhando o capítulo 7 do BKM, sobre carteiras arriscadas e agora desenhando a Fronteira Eficiente.
+* `Aula05.pdf` - Fechando o capítulo 7 do BKM, detalhando a Fronteira Eficiente
 
 Bancos de Dados
 * `Data01.xlsx` - Planilha com 14 anos de cotações de fechamento do IBOVESPA, CDI, PETR4 e BBAS3

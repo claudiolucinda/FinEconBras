@@ -11,6 +11,7 @@ Material para aplicação de R em Análise de Investimentos. Baseado no curso RE
 * `opt_portfolio.R` - Código usado para detalhar melhor o que significa a Otimização de Carteira no contexto do `PortfolioAnalytics`
 * `diversification.R`- Código para mostrar o efeito da diversificação com alguns dados do IBOVESPA
 * `Fund_Data.R` - Código para construir o banco de dados de fundos para CAPM e APT, com fatores de risco baixados do [NEFIN](http://www.nefin.com.br/)
+* `Single_Index.R` - Código para a estimação do modelo de índice único com os dados de fundos de investimento e fatores de risco.
 
 Apresentações
 
@@ -19,6 +20,7 @@ Apresentações
 * `Aula03.pdf` - Aula referente ao capítulo 7 do BKM, sobre carteiras arriscadas -- com apresentação de como baixar os dados das ações do IBOVESPA do Yahoo Finance.
 * `Aula04.pdf` - Ainda trabalhando o capítulo 7 do BKM, sobre carteiras arriscadas e agora desenhando a Fronteira Eficiente.
 * `Aula05.pdf` - Fechando o capítulo 7 do BKM, detalhando a Fronteira Eficiente
+* `Aula06.pdf` - Capítulo 8 do BKM, sobre modelos de Índice Único
 
 Bancos de Dados
 * `Data01.xlsx` - Planilha com 14 anos de cotações de fechamento do IBOVESPA, CDI, PETR4 e BBAS3

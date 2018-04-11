@@ -134,6 +134,6 @@ Fund_Info_clean<-Fund_Info[-which(colMeans(is.na(Raw_data)) > 0.5),]
 Data_monthly_clean<-df_monthly(Data_clean)
 Fund_Returns_monthly_clean<-df_returns(Data_monthly_clean)
 
-saveRDS(c("Data_clean", "Fund_Returns_clean", 
-          "Fund_Info_clean", "Data_monthly_clean",
-          "Fund_Returns_monthly_clean", "Risk_Factors", "Risk_Factors_monthly"),file="Fund_Data.RDS")
+save(Data_clean, Fund_Returns_clean, 
+          Fund_Info_clean, Data_monthly_clean,
+          Fund_Returns_monthly_clean, Risk_Factors, Risk_Factors_monthly,file="Fund_Data.RDS")

@@ -44,7 +44,7 @@ datafinal<-"2018-02-23"
 ##############################################
 
 df_IBOV<-BatchGetSymbols(tickers_Yah,first.date = datainicial,last.date = datafinal,thresh.bad.data = .75)
-data_IBOV<-reshape.wide(df_IBOV$df.tickers)$price.close
+data_IBOV<-reshape.wide(df_IBOV$df.tickers)$price.adjusted
 
 conv_ts <- function(.df) {
   OUT<-xts(.df[,-1],order.by=.df[,1])
@@ -98,4 +98,4 @@ data_IBOV_monthly<-df_monthly(data_IBOV)
 IBOV_Returns_monthly<-df_returns(data_IBOV_monthly)
 IBOV_Returns_Final<-na.omit(IBOV_Returns_monthly)
 
-saveRDS(list=ls(),file="IbovData.RDS")
+save(list=ls(),file="IbovData.RDS")

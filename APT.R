@@ -11,6 +11,7 @@ library(tidyverse)
 library(openxlsx)
 library(xlsReadWrite)
 library(matrixcalc)
+library(xts)
 rm(list=ls())
 graphics.off()
 
@@ -29,6 +30,7 @@ for (i in 1:60) {
   Fund_ex_returns[,i]<-Data_all[,i]-Data_all[,61]
 }  
 
+plot.zoo(Fund_ex_returns$SMB)
 modelo_fundo_280<-lm(Fundo_280~Rm_minus_Rf+SMB+WML+HML+IML, data=Fund_ex_returns)
 
 summary(modelo_fundo_280)

@@ -9,8 +9,6 @@ library(xlsx)
 library(plyr)
 library(tidyverse)
 library(openxlsx)
-library(xlsReadWrite)
-library(matrixcalc)
 rm(list=ls())
 graphics.off()
 
@@ -31,9 +29,18 @@ for (i in 1:60) {
 
 
 
-coefs<-ldply(as.list(fund_list_names), function(.x) coef(lm(get(.x)~Rm_minus_Rf+SMB+WML+HML+IML, data=Fund_ex_returns)))
+coefs<-ldply(as.list(fund_list_names), function(.x) coef(lm(get(.x)~Rm_minus_Rf+SMB+WML+HML+IML, data=Data_all)))
 
 alpha_anual<-coefs$`(Intercept)`*252
 
 chart.Histogram(alpha_anual,methods=c("add.density",
                                     "add.normal"))
+
+pvals<-ldply(as.list(fund_list_names), function(.x) summary(lm(get(.x)~Rm_minus_Rf+SMB+WML+HML+IML, data=Data_all))$coef[,4])
+
+pvals_int<-pvals$`(Intercept)`
+
+alpha_anual_pos<-alpha_anual[(pvals_int<0.05 & alpha_anual>0)]
+F_info<-Fund_Info_clean[(pvals_int<0.05 & alpha_anual>0),2]
+cbind(F_info, alpha_anual_pos)
+

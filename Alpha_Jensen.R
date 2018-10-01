@@ -29,14 +29,14 @@ for (i in 1:60) {
 
 
 
-coefs<-ldply(as.list(fund_list_names), function(.x) coef(lm(get(.x)~Rm_minus_Rf+SMB+WML+HML+IML, data=Data_all)))
+coefs<-ldply(as.list(fund_list_names), function(.x) coef(lm(get(.x)~Rm_minus_Rf+SMB+WML+HML+IML, data=Fund_ex_returns)))
 
 alpha_anual<-coefs$`(Intercept)`*252
 
 chart.Histogram(alpha_anual,methods=c("add.density",
                                     "add.normal"))
 
-pvals<-ldply(as.list(fund_list_names), function(.x) summary(lm(get(.x)~Rm_minus_Rf+SMB+WML+HML+IML, data=Data_all))$coef[,4])
+pvals<-ldply(as.list(fund_list_names), function(.x) summary(lm(get(.x)~Rm_minus_Rf+SMB+WML+HML+IML, data=Fund_ex_returns))$coef[,4])
 
 pvals_int<-pvals$`(Intercept)`
 
